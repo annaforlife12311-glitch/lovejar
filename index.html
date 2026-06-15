@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>my special baby</title>
+
+<style>
+body{
+    margin:0;
+    min-height:100vh;
+    background:linear-gradient(to bottom,#ff2d55,#ff9aa2);
+    font-family:'Trebuchet MS',sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+.container{
+    text-align:center;
+    padding:20px;
+    max-width:700px;
+    z-index:2;
+}
+
+h1{
+    color:#ff4f87;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    color:#666;
+    margin-bottom:30px;
+}
+
+.jar{
+    font-size:120px;
+    cursor:pointer;
+    transition:transform .3s;
+}
+
+.jar:hover{
+    transform:scale(1.1) rotate(5deg);
+}
+
+.note{
+    margin-top:25px;
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.1);
+    font-size:22px;
+    color:#444;
+    min-height:60px;
+    animation:pop .4s ease;
+}
+
+.counter{
+    margin-top:15px;
+    color:#888;
+}
+
+@keyframes pop{
+    from{
+        opacity:0;
+        transform:scale(.8);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+.heart{
+    position:absolute;
+    bottom:-20px;
+    animation:float 8s linear infinite;
+    opacity:.5;
+}
+
+@keyframes float{
+    from{ transform:translateY(0); }
+    to{ transform:translateY(-120vh); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Everything I love about you</h1>
+
+<div class="subtitle">
+jar of things i love about you mwah mwah 💌
+</div>
+
+<div class="jar" onclick="getLoveNote()">🫙</div>
+
+<div class="note" id="note">
+i love you so much baby ✨
+</div>
+
+<div class="counter" id="counter">
+0 mwahs
+</div>
+
+</div>
+
+<script>
+
+const notes = [
+"I love hearing your voice even when u ragebaiting",
+"You have the cutest laugh ever bro",
+"I love how patient you are with me esp with all my mood swings",
+"I love how excited you get about random things I mention",
+"Your perfect smile",
+"Being on call all the time and never being bored ",
+"Your humor",
+"Your autism hehe",
+"I love how safe you make me feel my baby mwah",
+"You make me so comfortable",
+"Your care for me and people around you",
+"Freakiness heheheehe",
+"How you always listen <3",
+"Always remembering the little things",
+"Your determination",
+"Your extrovertedness",
+"Your support",
+"Your messy ass hair",
+"Your unfortunate but cute style choices mwah",
+"How u randomly burst into songs",
+"Your weirdass longass feet",
+"How cute you are in glasses",
+"How you always show your love",
+"I love that I have someone I miss so much all the time",
+"Your chinese eyes when you smile",
+"Your laugh",
+"Your very fire dancing",
+"Your wave when you see me",
+"Your lips",
+"Your hands when u hold me",
+"THAT DIH",
+"Your fire goatee",
+"Your height even if you like barely taller",
+"Your kisses",
+"Your sleepy face",
+"Your tired voice",
+"You in the morning",
+"Your goodnight messages",
+"Your goodmorning messages",
+"Your challi",
+"How you text even when you are barely able to",
+"How you support me",
+"When you get mad when i do sum stupid",
+"Your eyelashes",
+"Your confidence",
+"Your ragebaits ig dummy hehehe",
+"How you call me muthe mwah",
+"How you answer my dumahh questions mwah",
+"HOW WE TEXT ME IN ALL CAPS",
+"How you help pick my outfits",
+"Your letter",
+"Your face 10/10 ong frfr",
+"Your advice",
+"Your amazing singing",
+"How you are weirdly good at bowling",
+"How you match my freak",
+"Your goofiness",
+"I love talking to you",
+"I love how i can tell you anything ",
+"Your hugs",
+"You make me feel at home",
+"How you make me happier",
+"How you comfort my ovethinkingness",
+"You always give me my selfishly wanted attention hehe",
+"I love how obsessed I am with you",
+"You make everything less boring",
+"You make me excited about my future",
+"You are my future",
+"You tryna act tuff",
+"I love how your all mine",
+"I love being all yours",
+"Your smile",
+"How adorable you look even when u try to be tuff",
+"How you never try to be non chalant with me",
+"How you help me find a solution to everything",
+"How you distract me from life everyday",
+"How easy I can annoy you",
+"I love how you think you know more malayalam than me",
+"I love how you say my name",
+"Your existence",
+"I love how you care so much when I cry",
+"Your face when your exited",
+"How cute you look even when you sick",
+"How tuff my baby sounds when he talks to his friends",
+"How you hold me",
+"How you hold me when we walk together",
+"Your fire jawline",
+"The way you look at me",
+"How you smell",
+"I love how you always try to do the right thing",
+"How bad you are at staring competitions",
+"How you are always ready for deep talks",
+"How you are my bestfriend",
+"How protective you are of me",
+"How I am myself with you",
+"I love all the fire memories we made and will make",
+"I love how you stay up even if you have to be up early",
+"How you can make me annoyed and happy all in 5 secs",
+"How I look forward to your messages all the time",
+"How I wanna wake up in the morning just to wish you good morning",
+"I love how you are exactly who i needed",
+"How special of a person you are",
+"I love how there isnt a day I dont think of you",
+"How you are always you",
+"How you put me on blast so everyone in the house can hear dummy",
+"I love how we have stupid cute pet names for eachother",
+"How you always wear my ring even as a necklace mwah",
+"I love singing songs with you",
+"How you still love your disgusting looking coffees",
+"How cute you are when you alwasy go for your orange juice",
+"I love how much I love you"
+];
+
+let remaining = [...notes];
+let opened = 0;
+
+function getLoveNote(){
+
+    if(remaining.length === 0){
+        remaining = [...notes];
+    }
+
+    const randomIndex = Math.floor(Math.random() * remaining.length);
+    const chosen = remaining[randomIndex];
+
+    remaining.splice(randomIndex,1);
+    opened++;
+
+    document.getElementById("note").innerHTML =
+        "💌<br><br>" + chosen;
+
+    document.getElementById("counter").innerHTML =
+        opened + " notes opened";
+}
+
+// floating hearts
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.innerHTML = "❤️";
+    heart.classList.add("heart");
+
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.fontSize = (15 + Math.random()*25) + "px";
+    heart.style.animationDuration = (5 + Math.random()*6) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=> heart.remove(), 11000);
+}
+
+setInterval(createHeart,700);
+
+</script>
+
+</body>
+</html>
